@@ -22,5 +22,4 @@ To create a decentralized, censorship-resistant archive of song lyrics that ensu
 
 ## 5. Contract Address
 
-_Replace this with your deployed contract address once uploaded._
-Contract Address: `ST2EV4JDJQKWQV13H0VVHG66ABCTR1P8YR596CHR6.song-lyrics-collector`
+Contract Address: `STGPBEW1DRVNA80A863AYGPGNJ91SYNBYKTZK0QB.song-lyrics-collector`![image](https://github.com/user-attachments/assets/969f0a2a-c70d-4482-9315-67abca48c21d)
