@@ -1,20 +1,19 @@
-;; Song Lyrics Collector
-;; A simple contract to store and retrieve song lyrics immutably.
+(define-map user-lyrics
+  {user: principal}     ;; key
+  {lyrics: (string-utf8 200)}) ;; value
 
-;; Error constant
-(define-constant err-lyrics-already-exist (err u100))
+(define-data-var total-lyrics uint u0)
 
-;; Map to store song lyrics using a song ID
-(define-map lyrics-map uint (string-ascii 500))
+(define-constant err-empty-lyrics (err u100))
 
-;; Public function to submit lyrics for a song
-(define-public (submit-lyrics (song-id uint) (lyrics (string-ascii 500)))
+;; Public: Submit lyrics
+(define-public (submit-lyrics (text (string-utf8 200)))
   (begin
-    ;; Ensure the song hasn't already been added
-    (asserts! (is-none (map-get? lyrics-map song-id)) err-lyrics-already-exist)
-    (map-set lyrics-map song-id lyrics)
+    (asserts! (> (len text) u0) err-empty-lyrics)
+    (map-set user-lyrics {user: tx-sender} {lyrics: text})
+    (var-set total-lyrics (+ (var-get total-lyrics) u1))
     (ok true)))
 
-;; Read-only function to retrieve lyrics for a song
-(define-read-only (get-lyrics (song-id uint))
-  (ok (map-get? lyrics-map song-id)))
+;; Read-only: Get total lyrics submissions
+(define-read-only (get-total-lyrics)
+  (ok (var-get total-lyrics)))
